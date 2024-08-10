@@ -1,12 +1,14 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+import BookSingleCard from './BookSingleCard'
 
-function BookCard(props) {
+function BookCard({ books }) {
   return (
-    <div>BookCard</div>
+    <div className='grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
+      {books.map((book)=>(
+        <BookSingleCard key={book._id} book={book} />
+      ))  }
+    </div>
   )
 }
-
-BookCard.propTypes = {}
 
 export default BookCard

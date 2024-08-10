@@ -29,10 +29,10 @@ const Home = () => {
     <div className="p-4">
       <div className="flex justify-center items-center gap-x-4">
         <button className="bg-sky-300 hover:bg-sky-600 px-6 py-1 rounded-lg"
-         onClick={(()=>{ setShowType('table')})}>Table
+          onClick={(() => { setShowType('table') })}>Table
         </button>
         <button className="bg-sky-300 hover:bg-sky-600 px-6 py-1 rounded-lg"
-         onClick={(()=>{ setShowType('card')})}>Card
+          onClick={(() => { setShowType('card') })}>Card
         </button>
       </div>
       <div className="flex flex-col justify-between items-center">
@@ -43,7 +43,7 @@ const Home = () => {
         {loader ? (
           <Spinner />
         ) : (
-          showType == 'table' ? <BookTable books = {books} /> : <BookCard />
+          showType == 'table' ? <BookTable books={books} /> : <BookCard books={books} />
         )}
       </div>
     </div>
