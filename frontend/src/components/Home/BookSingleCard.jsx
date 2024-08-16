@@ -38,7 +38,7 @@ function BookSingleCard({ book }) {
                 <Link to={`/books/delete/${book._id}`}>
                     <MdOutlineDelete className='text-2xl text-red-600 hover:text-black' />
                 </Link>
-                {showModal && (<BookShowModal book={book} />)}
+                {showModal && (<BookShowModal book={book} onClose = {()=>{setShowModal(false)}}/>)}
             </div>
         </div>
     )
