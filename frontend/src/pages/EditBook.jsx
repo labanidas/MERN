@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react'
 import BackButton from '../components/BackButton'
 import Spinner from '../components/Spinner'
 import axios from 'axios'
-import { useNavigate,useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
+import { useSnackbar } from 'notistack'
 
 
 function EditBook() {
@@ -11,39 +12,42 @@ function EditBook() {
   const [author, setAuthor] = useState('');
   const [publish_year, setPublish_year] = useState('');
   const navigate = useNavigate();
-  const {id} = useParams();
+  const { id } = useParams();
+  const { enqueueSnackbar } = useSnackbar();
 
-  useEffect(()=>{
+  useEffect(() => {
     setLoader(true);
     axios
-    .get(`http://localhost:3000/books/${id}`)
-    .then((response)=>{
-      console.log(response.data)      
-      setTitle(response.data.title)
-      setAuthor(response.data.author)
-      setPublish_year(response.data.publish_year)
-      setLoader(false)
-    })
-    .catch((error)=>{
-      console.log(error)
-    })
-  },[])
+      .get(`http://localhost:3000/books/${id}`)
+      .then((response) => {
+        console.log(response.data)
+        setTitle(response.data.title)
+        setAuthor(response.data.author)
+        setPublish_year(response.data.publish_year)
+        setLoader(false)
+      })
+      .catch((error) => {
+        enqueueSnackbar("Error", { variant: "error" })
+        console.log(error)
+      })
+  }, [])
 
   const handleRequest = () => {
     const data = {
-      "title":title,
-      "author":author,
+      "title": title,
+      "author": author,
       "publish_year": publish_year
     }
-    // console.log(data)
     setAuthor(true)
     axios
       .put(`http://localhost:3000/books/${id}`, data)
       .then((response) => {
         setLoader(false);
+        enqueueSnackbar("Book Edited succesfully", { variant: "success" })
         navigate('/')
       }).catch((error) => {
         console.log(error)
+        enqueueSnackbar("Error", { variant: "error" })
         setLoader(false)
       })
   }
