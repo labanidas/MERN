@@ -1,0 +1,7 @@
+extra.js
+
+backend/node_modules 
+
+client/node_modules
+
+.vscode
